@@ -1,0 +1,20 @@
+# Use a Node.js base image that includes the runtime and build tools
+FROM node:lts-alpine
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy package.json and yarn.lock to install dependencies
+COPY package.json yarn.lock ./
+
+# Install application dependencies
+RUN yarn install --production
+
+# Copy the rest of the application code
+COPY . .
+
+# Expose the port your application listens on
+EXPOSE 3000
+
+# Define the command to run your application
+CMD ["node", "src/index.js"]
